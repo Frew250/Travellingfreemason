@@ -92,18 +92,18 @@ export default function HomePage() {
             reliable way to verify membership status. Each credential is
             manually reviewed by our administrative team to ensure authenticity.
           </p>
-          <div className="grid grid-cols-3 gap-8 max-w-md mx-auto">
+          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">51</div>
-              <div className="text-sm text-muted-foreground">Grand Lodges</div>
+              <div className="text-3xl font-bold text-primary">Global</div>
+              <div className="text-sm text-muted-foreground">Recognition</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">Secure</div>
+              <div className="text-3xl font-bold text-primary">Instant</div>
               <div className="text-sm text-muted-foreground">Verification</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">24/7</div>
-              <div className="text-sm text-muted-foreground">Access</div>
+              <div className="text-3xl font-bold text-primary">Digital</div>
+              <div className="text-sm text-muted-foreground">Credentials</div>
             </div>
           </div>
         </div>
