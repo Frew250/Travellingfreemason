@@ -10,11 +10,12 @@ export default async function CredentialsPage({ params }: PageProps) {
   const { id } = await params;
   const supabase = await createClient();
 
+  // TODO: Re-enable verification check when admin verification feature is added
+  // .eq("status", "VERIFIED")
   const { data: profile } = await supabase
     .from("member_profiles")
     .select("*")
     .eq("id", id)
-    .eq("status", "VERIFIED")
     .single();
 
   if (!profile) {

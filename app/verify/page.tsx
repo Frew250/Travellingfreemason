@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
-import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,12 +17,10 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Search, ArrowLeft } from "lucide-react";
-import Loading from "./loading"; // Import the Loading component
 
 export default function VerifyPage() {
   const [credentialId, setCredentialId] = useState("");
   const router = useRouter();
-  const searchParams = useSearchParams(); // Use useSearchParams
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,8 +50,7 @@ export default function VerifyPage() {
       </header>
 
       <main className="container mx-auto px-4 py-16 max-w-md">
-        <Suspense fallback={<Loading />}> {/* Wrap the Card component in Suspense */}
-          <Card>
+        <Card>
             <CardHeader className="text-center">
               <div className="flex justify-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -91,7 +89,6 @@ export default function VerifyPage() {
               </div>
             </CardContent>
           </Card>
-        </Suspense>
       </main>
     </div>
   );

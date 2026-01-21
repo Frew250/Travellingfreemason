@@ -225,25 +225,12 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             </div>
           </CardHeader>
           <CardContent>
-            {status === "PENDING" && (
+            {/* TODO: Re-enable status-based messaging when admin verification feature is added */}
+            {/* {status === "PENDING" && (
               <p className="text-muted-foreground">
                 Your credentials are being reviewed. Please upload your dues card
                 and membership certificate to expedite the verification process.
               </p>
-            )}
-            {status === "VERIFIED" && (
-              <div className="space-y-4">
-                <p className="text-muted-foreground">
-                  Your credentials have been verified. You can now share your
-                  credentials page with other lodges.
-                </p>
-                <Link href={`/credentials/${currentProfile?.id}`}>
-                  <Button>
-                    <Share2 className="h-4 w-4 mr-2" />
-                    View Public Credentials
-                  </Button>
-                </Link>
-              </div>
             )}
             {status === "REJECTED" && currentProfile?.admin_note && (
               <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
@@ -264,7 +251,18 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
                   {currentProfile.admin_note}
                 </p>
               </div>
-            )}
+            )} */}
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                Share your credentials page with other lodges for verification.
+              </p>
+              <Link href={`/credentials/${currentProfile?.id}`}>
+                <Button>
+                  <Share2 className="h-4 w-4 mr-2" />
+                  View Public Credentials
+                </Button>
+              </Link>
+            </div>
           </CardContent>
         </Card>
 
