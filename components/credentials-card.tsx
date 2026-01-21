@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, X } from "lucide-react";
 
 interface MemberProfile {
   id: string;
@@ -25,6 +25,7 @@ interface CredentialsCardProps {
 export function CredentialsCard({ profile }: CredentialsCardProps) {
   const [timeRemaining, setTimeRemaining] = useState(8 * 60); // 8 minutes in seconds
   const [isExpired, setIsExpired] = useState(false);
+  const [viewingDocument, setViewingDocument] = useState<{ url: string; title: string } | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -220,18 +221,16 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         <div className="py-2 text-center space-y-1">
           {profile.dues_card_image_url && (
             timeRemaining > 0 ? (
-              <a
-                href={profile.dues_card_image_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-white hover:text-slate-200 uppercase transition-colors font-serif font-medium"
+              <button
+                onClick={() => setViewingDocument({ url: profile.dues_card_image_url!, title: "Dues Card" })}
+                className="block w-full text-white hover:text-slate-200 uppercase transition-colors font-serif font-medium cursor-pointer"
                 style={{ 
                   fontSize: "15px", 
                   letterSpacing: "0.12em" 
                 }}
               >
                 Dues Card
-              </a>
+              </button>
             ) : (
               <span 
                 className="block text-slate-500 uppercase font-serif font-medium"
@@ -246,18 +245,16 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
           )}
           {profile.certificate_image_url && (
             timeRemaining > 0 ? (
-              <a
-                href={profile.certificate_image_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-white hover:text-slate-200 uppercase transition-colors font-serif font-medium"
+              <button
+                onClick={() => setViewingDocument({ url: profile.certificate_image_url!, title: "Grand Lodge Certificate" })}
+                className="block w-full text-white hover:text-slate-200 uppercase transition-colors font-serif font-medium cursor-pointer"
                 style={{ 
                   fontSize: "15px", 
                   letterSpacing: "0.12em" 
                 }}
               >
                 Grand Lodge Certificate
-              </a>
+              </button>
             ) : (
               <span 
                 className="block text-slate-500 uppercase font-serif font-medium"
@@ -271,6 +268,47 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
             )
           )}
         </div>
+
+        {/* Document Viewer Modal */}
+        {viewingDocument && (
+          <div 
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            onClick={() => setViewingDocument(null)}
+          >
+            <div 
+              className="relative max-w-4xl max-h-[90vh] w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setViewingDocument(null)}
+                className="absolute -top-12 right-0 text-white hover:text-slate-300 transition-colors"
+              >
+                <X className="h-8 w-8" />
+              </button>
+              <h3 className="text-white text-center mb-4 font-serif uppercase tracking-wider">
+                {viewingDocument.title}
+              </h3>
+              {/* Protected image viewer - no download */}
+              <div 
+                className="relative select-none"
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+              >
+                <img
+                  src={viewingDocument.url}
+                  alt={viewingDocument.title}
+                  className="max-w-full max-h-[70vh] mx-auto object-contain pointer-events-none"
+                  draggable={false}
+                />
+                {/* Invisible overlay to prevent interactions */}
+                <div className="absolute inset-0" />
+              </div>
+              <p className="text-slate-400 text-center mt-4 text-xs uppercase tracking-wider">
+                For verification only. Screenshots and downloads are prohibited.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Expiry Warning */}
         <div className="py-2 text-center border-t border-slate-700/50">
