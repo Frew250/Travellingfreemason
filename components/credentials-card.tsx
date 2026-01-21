@@ -203,7 +203,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
                 marginBottom: "8px"
               }}
             >
-              Dues Paid Through
+              Dues Paid To
             </p>
             <p 
               className="text-slate-200 font-semibold uppercase font-body"
