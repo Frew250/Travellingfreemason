@@ -54,7 +54,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <Image src="/images/masonic-symbol.svg" alt="Mason Credentials" width={64} height={64} />
+            <Image src="/images/masonic-logo.png" alt="Mason Credentials" width={64} height={64} />
           </div>
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
           <CardDescription>

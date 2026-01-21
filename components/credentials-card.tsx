@@ -93,7 +93,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
     >
       <div className="w-full max-w-md mx-auto px-6">
         {/* Page Title - Ceremonial Header */}
-        <div className="pt-10 pb-6 text-center">
+        <div className="pt-4 pb-2 text-center">
           <h1 
             className="text-slate-200 font-semibold uppercase font-serif"
             style={{ 
@@ -107,19 +107,19 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Divider with Symbol */}
-        <div className="flex items-center justify-center gap-4 py-3">
+        <div className="flex items-center justify-center gap-4 py-1">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 to-slate-500" />
           <Image 
-            src="/images/masonic-symbol.svg" 
+            src="/images/masonic-logo.png" 
             alt="Square and Compasses" 
-            width={60} 
-            height={60}
+            width={50} 
+            height={50}
           />
           <div className="flex-1 h-px bg-gradient-to-l from-transparent via-slate-500 to-slate-500" />
         </div>
 
         {/* Member Name - Primary Focus (Largest) */}
-        <div className="py-8 text-center">
+        <div className="py-3 text-center">
           <h2 
             className="text-white font-bold uppercase font-serif"
             style={{ 
@@ -133,7 +133,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Lodge Name + Number - Secondary */}
-        <div className="pb-2 text-center">
+        <div className="pb-1 text-center">
           <p 
             className="text-slate-200 font-medium uppercase font-serif"
             style={{ 
@@ -146,7 +146,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Grand Lodge / Jurisdiction - Contextual */}
-        <div className="pb-8 text-center">
+        <div className="pb-2 text-center">
           <p 
             className="text-slate-300 font-normal uppercase font-serif"
             style={{ 
@@ -159,19 +159,19 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Divider with Symbol */}
-        <div className="flex items-center justify-center gap-4 py-3">
+        <div className="flex items-center justify-center gap-4 py-1">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 to-slate-500" />
           <Image 
-            src="/images/masonic-symbol.svg" 
+            src="/images/masonic-logo.png" 
             alt="Square and Compasses" 
-            width={50} 
-            height={50}
+            width={40} 
+            height={40}
           />
           <div className="flex-1 h-px bg-gradient-to-l from-transparent via-slate-500 to-slate-500" />
         </div>
 
         {/* Metadata Section - Ritual Work & Dues Info */}
-        <div className="py-6 flex justify-center gap-12 text-center">
+        <div className="py-3 flex justify-center gap-12 text-center">
           <div>
             <p 
               className="text-slate-400 uppercase font-medium font-body"
@@ -217,7 +217,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Action Links - Document Links */}
-        <div className="py-6 text-center space-y-3">
+        <div className="py-2 text-center space-y-1">
           {profile.dues_card_image_url && (
             timeRemaining > 0 ? (
               <a
@@ -273,7 +273,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Expiry Warning */}
-        <div className="py-5 text-center border-t border-slate-700/50">
+        <div className="py-2 text-center border-t border-slate-700/50">
           <p 
             className="text-red-400 font-medium flex items-center justify-center gap-1 font-body"
             style={{ fontSize: "12px" }}

@@ -35,7 +35,7 @@ export default function VerifyPage() {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/images/masonic-symbol.svg" alt="Mason Credentials" width={32} height={32} />
+            <Image src="/images/masonic-logo.png" alt="Mason Credentials" width={32} height={32} />
             <span className="text-lg font-bold text-foreground">
               Mason Credentials
             </span>

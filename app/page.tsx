@@ -11,7 +11,7 @@ export default function HomePage() {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/images/masonic-symbol.svg" alt="Mason Credentials" width={40} height={40} />
+            <Image src="/images/masonic-logo.png" alt="Mason Credentials" width={40} height={40} />
             <span className="text-xl font-bold text-foreground hidden sm:inline">
               Mason Credentials
             </span>
@@ -31,7 +31,7 @@ export default function HomePage() {
       <section className="py-20 px-4">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="flex justify-center mb-8">
-            <Image src="/images/masonic-symbol.svg" alt="Square and Compasses" width={96} height={96} />
+            <Image src="/images/masonic-logo.png" alt="Square and Compasses" width={96} height={96} />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
             Verify Your Masonic Credentials with Confidence
@@ -135,7 +135,7 @@ export default function HomePage() {
       <footer className="py-8 px-4 border-t bg-card">
         <div className="container mx-auto text-center text-muted-foreground">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Image src="/images/masonic-symbol.svg" alt="Mason Credentials" width={24} height={24} />
+            <Image src="/images/masonic-logo.png" alt="Mason Credentials" width={24} height={24} />
             <span className="font-semibold text-foreground">
               Mason Credentials
             </span>
