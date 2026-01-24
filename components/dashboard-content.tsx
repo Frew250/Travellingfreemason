@@ -40,6 +40,7 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import { AdminDashboard } from "@/components/admin-dashboard";
 
 interface MemberProfile {
   id: string;
@@ -62,6 +63,7 @@ interface MemberProfile {
 interface DashboardContentProps {
   user: User;
   profile: MemberProfile | null;
+  isAdmin?: boolean;
 }
 
 const statusConfig = {
@@ -107,10 +109,11 @@ const GRAND_LODGES = [
   "Grand Lodge of Nunavut",
 ];
 
-export function DashboardContent({ user, profile }: DashboardContentProps) {
+export function DashboardContent({ user, profile, isAdmin = false }: DashboardContentProps) {
   const [currentProfile, setCurrentProfile] = useState(profile);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showAdminView, setShowAdminView] = useState(false);
   const [editForm, setEditForm] = useState({
     full_name: profile?.full_name || "",
     lodge_name: profile?.lodge_name || "",
@@ -199,6 +202,16 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             </span>
           </Link>
           <div className="flex items-center gap-3">
+            {isAdmin && (
+              <Button
+                variant={showAdminView ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowAdminView(!showAdminView)}
+              >
+                <Shield className="h-4 w-4 mr-2" />
+                {showAdminView ? "Member View" : "Admin View"}
+              </Button>
+            )}
             <span className="text-sm text-muted-foreground hidden sm:inline">
               {user.email}
             </span>
@@ -210,7 +223,10 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      {showAdminView && isAdmin ? (
+        <AdminDashboard />
+      ) : (
+        <main className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
             Member Dashboard
@@ -463,6 +479,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
           </CardContent>
         </Card>
       </main>
+      )}
     </div>
   );
 }

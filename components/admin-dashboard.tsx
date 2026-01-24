@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import type { User } from "@supabase/supabase-js";
+import { useState, useEffect } from "react";
+
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,19 +13,15 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
 import { MemberReviewModal } from "@/components/member-review-modal";
 import {
-  LogOut,
   Users,
   Clock,
   CheckCircle,
   XCircle,
   AlertCircle,
   Eye,
-  Shield,
 } from "lucide-react";
-import Link from "next/link";
 
 interface MemberProfile {
   id: string;
@@ -35,19 +30,16 @@ interface MemberProfile {
   lodge_name: string;
   lodge_number: string;
   ritual_work_text: string;
+  rank: string | null;
   grand_lodge: string;
   status: "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   verified_at: string | null;
   verified_by: string | null;
   admin_note: string | null;
   created_at: string;
-}
-
-interface AdminDashboardProps {
-  user: User;
-  profiles: MemberProfile[];
 }
 
 const statusConfig = {
@@ -77,18 +69,34 @@ const statusConfig = {
   },
 };
 
-export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboardProps) {
-  const [profiles, setProfiles] = useState(initialProfiles);
+export function AdminDashboard() {
+  const [profiles, setProfiles] = useState<MemberProfile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<MemberProfile | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [adminId, setAdminId] = useState<string>("");
   const supabase = createClient();
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setAdminId(user.id);
+      }
+      
+      const { data: profilesData } = await supabase
+        .from("member_profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+      
+      if (profilesData) {
+        setProfiles(profilesData);
+      }
+      setLoading(false);
+    };
+    
+    fetchData();
+  }, [supabase]);
 
   const handleReview = (profile: MemberProfile) => {
     setSelectedProfile(profile);
@@ -115,33 +123,17 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
     { label: "Rejected/Suspended", value: rejectedProfiles.length + suspendedProfiles.length, icon: XCircle },
   ];
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/images/masonic-logo.png" alt="Mason Credentials" width={32} height={32} />
-            <span className="text-lg font-bold text-foreground">
-              Admin Dashboard
-            </span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="hidden sm:flex">
-              <Shield className="h-3 w-3 mr-1" />
-              Administrator
-            </Badge>
-            <span className="text-sm text-muted-foreground hidden sm:inline">
-              {user.email}
-            </span>
-            <Button variant="ghost" size="sm" onClick={handleSignOut}>
-              <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
-            </Button>
-          </div>
+  if (loading) {
+    return (
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center py-12">
+          <div className="text-muted-foreground">Loading...</div>
         </div>
-      </header>
+      </main>
+    );
+  }
 
+  return (
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -233,10 +225,10 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
             setSelectedProfile(null);
           }}
           onStatusUpdate={handleStatusUpdate}
-          adminId={user.id}
+          adminId={adminId}
         />
       )}
-    </div>
+    </main>
   );
 }
 
@@ -307,6 +299,11 @@ function ProfileList({
                     {profile.certificate_image_url && (
                       <Badge variant="outline" className="text-xs">
                         Certificate
+                      </Badge>
+                    )}
+                    {profile.letter_of_introduction_url && (
+                      <Badge variant="outline" className="text-xs">
+                        Letter
                       </Badge>
                     )}
                   </div>

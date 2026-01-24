@@ -16,15 +16,11 @@ export default async function DashboardPage() {
   // Check if user is admin
   const isAdmin = user.user_metadata?.role === "admin";
 
-  if (isAdmin) {
-    redirect("/admin");
-  }
-
   const { data: profile } = await supabase
     .from("member_profiles")
     .select("*")
     .eq("user_id", user.id)
     .single();
 
-  return <DashboardContent user={user} profile={profile} />;
+  return <DashboardContent user={user} profile={profile} isAdmin={isAdmin} />;
 }
