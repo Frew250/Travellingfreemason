@@ -22,7 +22,12 @@ export async function POST(request: Request) {
   });
 
   if (authError) {
-    return NextResponse.json({ error: authError.message }, { status: 400 });
+    // Check for user already exists error
+    let errorMessage = authError.message;
+    if (authError.message.includes("already registered") || authError.message.includes("already exists") || authError.message.includes("User already registered")) {
+      errorMessage = "Failed to create profile. User already exists. Please sign in instead.";
+    }
+    return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 
   if (!authData.user) {
@@ -49,12 +54,12 @@ export async function POST(request: Request) {
     console.error("Profile creation error:", profileError);
     
     // Check for specific database errors and return user-friendly messages
-    let userFriendlyMessage = "Failed to create profile. Please try again.";
+    let userFriendlyMessage = "Failed to create profile. Please try again later.";
     
     if (profileError.code === "23505" || profileError.message.includes("duplicate") || profileError.message.includes("already exists")) {
-      userFriendlyMessage = "An account with these details already exists. Please sign in instead or use different information.";
+      userFriendlyMessage = "Failed to create profile. User already exists. Please sign in instead.";
     } else if (profileError.code === "23503" || profileError.message.includes("foreign key") || profileError.message.includes("violates foreign key constraint")) {
-      userFriendlyMessage = "An account with this email address already exists. Please sign in or use a different email.";
+      userFriendlyMessage = "Failed to create profile. User already exists. Please sign in instead.";
     }
     
     return NextResponse.json({ error: userFriendlyMessage }, { status: 400 });
