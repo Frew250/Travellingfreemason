@@ -10,8 +10,8 @@ const cinzel = Cinzel({ subsets: ["latin"], weight: ["400", "500", "600", "700"]
 const crimsonPro = Crimson_Pro({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-crimson" });
 
 export const metadata: Metadata = {
-  title: 'Mason Credentials - Verify Your Masonic Membership',
-  description: 'Official credential verification system for Freemasons. Securely verify and share your Masonic membership credentials.',
+  title: 'Mason Credentials - Present Your Masonic Membership',
+  description: 'Digital credential presentation system for Freemasons. Securely present and share your Masonic membership credentials.',
   generator: 'v0.app',
   icons: {
     icon: [

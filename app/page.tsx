@@ -34,10 +34,10 @@ export default function HomePage() {
             <Image src="/images/masonic-logo.png" alt="Square and Compasses" width={96} height={96} />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-            Verify Your Masonic Credentials with Confidence
+            Present Your Masonic Credentials with Confidence
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty">
-            A secure, digital platform for Freemasons to verify their membership
+            A secure, digital platform for Freemasons to present their membership
             and share credentials with lodges worldwide.
           </p>
           <div className="flex justify-center">
@@ -65,17 +65,17 @@ export default function HomePage() {
             <FeatureCard
               icon={<FileCheck className="h-8 w-8" />}
               title="Upload Documents"
-              description="Upload your dues card and membership certificate for verification."
+              description="Upload your dues card and membership certificate for confirmation."
             />
             <FeatureCard
               icon={<Shield className="h-8 w-8" />}
-              title="Get Verified"
-              description="Our administrators review and verify your credentials securely."
+              title="Get Confirmed"
+              description="Your home lodge secretary confirms your credentials on file."
             />
             <FeatureCard
               icon={<Globe className="h-8 w-8" />}
               title="Share Anywhere"
-              description="Share your verified digital credentials with any lodge worldwide."
+              description="Share your confirmed digital credentials with any lodge worldwide."
             />
           </div>
         </div>
@@ -85,12 +85,12 @@ export default function HomePage() {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-6 text-foreground">
-            Trusted Verification
+            Trusted Presentation
           </h2>
           <p className="text-lg text-muted-foreground mb-8 text-pretty">
             Our platform connects Freemasons across jurisdictions, providing a
-            reliable way to verify membership status. Each credential is
-            manually reviewed by our administrative team to ensure authenticity.
+            reliable way to present membership credentials. Each credential is
+            confirmed by your home lodge secretary to ensure accuracy.
           </p>
           <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
             <div className="text-center">
@@ -99,7 +99,7 @@ export default function HomePage() {
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">Instant</div>
-              <div className="text-sm text-muted-foreground">Verification</div>
+              <div className="text-sm text-muted-foreground">Access</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">Digital</div>
@@ -113,10 +113,10 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-primary text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Ready to Verify Your Credentials?
+            Ready to Present Your Credentials?
           </h2>
           <p className="text-lg mb-8 opacity-90">
-            Join fellow Masons in creating a trusted network of verified
+            Join fellow Masons in creating a trusted network of confirmed
             credentials.
           </p>
           <Link href="/auth/signup">
@@ -141,7 +141,7 @@ export default function HomePage() {
             </span>
           </div>
           <p className="text-sm">
-            Secure credential verification for Freemasons worldwide.
+            Secure credential presentation for Freemasons worldwide.
           </p>
         </div>
       </footer>

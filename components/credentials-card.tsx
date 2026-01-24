@@ -78,7 +78,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-yellow-500" />
         <h2 className="text-2xl font-bold text-white mb-2 font-serif">Page Expired</h2>
         <p className="text-slate-300 font-body max-w-sm">
-          This verification page has expired for security purposes. Please
+          This credentials page has expired for security purposes. Please
           request a new link from the member.
         </p>
       </div>
@@ -103,7 +103,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
               lineHeight: 1.3
             }}
           >
-            Verified Masonic<br />Member
+            Masonic Member<br />Credentials
           </h1>
         </div>
 
@@ -304,7 +304,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
                 <div className="absolute inset-0" />
               </div>
               <p className="text-slate-400 text-center mt-4 text-xs uppercase tracking-wider">
-                For verification only. Screenshots and downloads are prohibited.
+                For presentation only. Screenshots and downloads are prohibited.
               </p>
             </div>
           </div>
