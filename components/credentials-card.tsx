@@ -16,6 +16,7 @@ interface MemberProfile {
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
   dues_paid_through?: string | null;
+  rank?: string | null;
 }
 
 interface CredentialsCardProps {
@@ -48,24 +49,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Calculate dues paid through date (1 year from verification or custom)
-  const duesPaidThrough = profile.dues_paid_through
-    ? new Date(profile.dues_paid_through).toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : profile.verified_at
-      ? new Date(
-          new Date(profile.verified_at).setFullYear(
-            new Date(profile.verified_at).getFullYear() + 1
-          )
-        ).toLocaleDateString("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        })
-      : "December 31, 2026";
+  
 
   if (isExpired) {
     return (
@@ -93,20 +77,6 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
       }}
     >
       <div className="w-full max-w-md mx-auto px-6">
-        {/* Page Title - Ceremonial Header */}
-        <div className="pt-4 pb-2 text-center">
-          <h1 
-            className="text-slate-200 font-semibold uppercase font-serif"
-            style={{ 
-              fontSize: "24px", 
-              letterSpacing: "0.18em",
-              lineHeight: 1.3
-            }}
-          >
-            Masonic Member<br />Credentials
-          </h1>
-        </div>
-
         {/* Divider with Symbol */}
         <div className="flex items-center justify-center gap-4 py-1">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 to-slate-500" />
@@ -119,8 +89,23 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
           <div className="flex-1 h-px bg-gradient-to-l from-transparent via-slate-500 to-slate-500" />
         </div>
 
+        {/* Rank - Above Name */}
+        {profile.rank && (
+          <div className="pt-3 pb-1 text-center">
+            <p 
+              className="text-slate-300 font-medium uppercase font-serif"
+              style={{ 
+                fontSize: "18px", 
+                letterSpacing: "0.12em"
+              }}
+            >
+              {profile.rank}
+            </p>
+          </div>
+        )}
+
         {/* Member Name - Primary Focus (Largest) */}
-        <div className="py-3 text-center">
+        <div className={`${profile.rank ? 'pb-3' : 'py-3'} text-center`}>
           <h2 
             className="text-white font-bold uppercase font-serif"
             style={{ 
@@ -160,7 +145,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
         </div>
 
         {/* Divider with Symbol */}
-        <div className="flex items-center justify-center gap-4 py-1">
+        <div className="flex items-center justify-center gap-4 py-3">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 to-slate-500" />
           <Image 
             src="/images/masonic-logo.png" 
@@ -169,52 +154,6 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
             height={40}
           />
           <div className="flex-1 h-px bg-gradient-to-l from-transparent via-slate-500 to-slate-500" />
-        </div>
-
-        {/* Metadata Section - Ritual Work & Dues Info */}
-        <div className="py-3 flex justify-center gap-12 text-center">
-          <div>
-            <p 
-              className="text-slate-400 uppercase font-medium font-body"
-              style={{ 
-                fontSize: "14px", 
-                letterSpacing: "0.15em",
-                marginBottom: "8px"
-              }}
-            >
-              Ritual Work
-            </p>
-            <p 
-              className="text-slate-200 font-semibold uppercase font-body"
-              style={{ 
-                fontSize: "18px", 
-                letterSpacing: "0.06em" 
-              }}
-            >
-              {profile.ritual_work_text}
-            </p>
-          </div>
-          <div>
-            <p 
-              className="text-slate-400 uppercase font-medium font-body"
-              style={{ 
-                fontSize: "14px", 
-                letterSpacing: "0.15em",
-                marginBottom: "8px"
-              }}
-            >
-              Dues Paid To
-            </p>
-            <p 
-              className="text-slate-200 font-semibold uppercase font-body"
-              style={{ 
-                fontSize: "18px", 
-                letterSpacing: "0.06em" 
-              }}
-            >
-              {duesPaidThrough}
-            </p>
-          </div>
         </div>
 
         {/* Action Links - Document Links */}
