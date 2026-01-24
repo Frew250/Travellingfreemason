@@ -143,11 +143,16 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
   };
 
   const handleSaveProfile = async () => {
-    if (!currentProfile) return;
+    if (!currentProfile) {
+      console.log("[v0] No current profile found");
+      return;
+    }
     
     setIsSaving(true);
+    console.log("[v0] Saving profile with data:", editForm);
+    console.log("[v0] User ID:", currentProfile.user_id);
     
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("member_profiles")
       .update({
         full_name: editForm.full_name,
@@ -157,9 +162,16 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
         ritual_work_text: editForm.ritual_work_text,
         rank: editForm.rank || null,
       })
-      .eq("user_id", currentProfile.user_id);
+      .eq("user_id", currentProfile.user_id)
+      .select();
 
-    if (!error) {
+    console.log("[v0] Update result - data:", data, "error:", error);
+
+    if (error) {
+      console.error("[v0] Error updating profile:", error);
+      alert("Failed to save profile: " + error.message);
+    } else {
+      console.log("[v0] Profile updated successfully");
       setCurrentProfile({
         ...currentProfile,
         ...editForm,
