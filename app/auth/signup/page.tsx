@@ -43,6 +43,7 @@ export default function SignupPage() {
   const [lodgeName, setLodgeName] = useState("");
   const [lodgeNumber, setLodgeNumber] = useState("");
   const [ritualWorkText, setRitualWorkText] = useState("");
+  const [rank, setRank] = useState("");
   const [grandLodge, setGrandLodge] = useState("");
   const [grandLodges, setGrandLodges] = useState<GrandLodge[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -92,6 +93,7 @@ export default function SignupPage() {
           lodgeName,
           lodgeNumber,
           ritualWorkText,
+          rank,
           grandLodge,
         }),
       });
@@ -239,7 +241,7 @@ export default function SignupPage() {
                 <Input
                   id="lodgeName"
                   type="text"
-                  placeholder="United Peninsula"
+                  placeholder="Name"
                   value={lodgeName}
                   onChange={(e) => setLodgeName(e.target.value)}
                   required
@@ -274,16 +276,28 @@ export default function SignupPage() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="ritualWorkText">Ritual Work</Label>
-              <Input
-                id="ritualWorkText"
-                type="text"
-                placeholder="Ancient or Canadian Emulation or....."
-                value={ritualWorkText}
-                onChange={(e) => setRitualWorkText(e.target.value)}
-                required
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ritualWorkText">Ritual Work</Label>
+                <Input
+                  id="ritualWorkText"
+                  type="text"
+                  placeholder="Ancient/Canadian Emulation/etc"
+                  value={ritualWorkText}
+                  onChange={(e) => setRitualWorkText(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rank">Rank</Label>
+                <Input
+                  id="rank"
+                  type="text"
+                  placeholder="Master Mason"
+                  value={rank}
+                  onChange={(e) => setRank(e.target.value)}
+                />
+              </div>
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>

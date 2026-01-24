@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const supabase = await createClient();
   const adminClient = createAdminClient();
   
-  const { email, password, fullName, lodgeName, lodgeNumber, ritualWorkText, grandLodge } = await request.json();
+  const { email, password, fullName, lodgeName, lodgeNumber, ritualWorkText, rank, grandLodge } = await request.json();
 
   // First create the user
   const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -38,6 +38,7 @@ export async function POST(request: Request) {
       lodge_name: lodgeName,
       lodge_number: lodgeNumber,
       ritual_work_text: ritualWorkText,
+      rank: rank || null,
       grand_lodge: grandLodge,
       status: "PENDING",
     });
