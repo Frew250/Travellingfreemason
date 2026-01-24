@@ -159,6 +159,17 @@ export default function SignupPage() {
             )}
 
             <div className="space-y-2">
+              <Label htmlFor="rank">Rank</Label>
+              <Input
+                id="rank"
+                type="text"
+                placeholder="Bro/MWBro/etc"
+                value={rank}
+                onChange={(e) => setRank(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>
               <Input
                 id="fullName"
@@ -276,28 +287,16 @@ export default function SignupPage() {
               </Select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="ritualWorkText">Ritual Work</Label>
-                <Input
-                  id="ritualWorkText"
-                  type="text"
-                  placeholder="Ancient/Canadian Emulation/etc"
-                  value={ritualWorkText}
-                  onChange={(e) => setRitualWorkText(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rank">Rank</Label>
-                <Input
-                  id="rank"
-                  type="text"
-                  placeholder="Master Mason"
-                  value={rank}
-                  onChange={(e) => setRank(e.target.value)}
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="ritualWorkText">Ritual Work</Label>
+              <Input
+                id="ritualWorkText"
+                type="text"
+                placeholder="Ancient/Canadian Emulation/etc"
+                value={ritualWorkText}
+                onChange={(e) => setRitualWorkText(e.target.value)}
+                required
+              />
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
