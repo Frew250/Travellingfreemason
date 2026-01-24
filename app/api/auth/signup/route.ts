@@ -46,7 +46,17 @@ export async function POST(request: Request) {
     // If profile creation fails, delete the auth user to keep data consistent
     await adminClient.auth.admin.deleteUser(authData.user.id);
     console.error("Profile creation error:", profileError);
-    return NextResponse.json({ error: profileError.message }, { status: 400 });
+    
+    // Check for specific database errors and return user-friendly messages
+    let userFriendlyMessage = "Failed to create profile. Please try again.";
+    
+    if (profileError.code === "23505" || profileError.message.includes("duplicate") || profileError.message.includes("already exists")) {
+      userFriendlyMessage = "An account with these details already exists. Please sign in instead or use different information.";
+    } else if (profileError.code === "23503" || profileError.message.includes("foreign key") || profileError.message.includes("violates foreign key constraint")) {
+      userFriendlyMessage = "An account with this email address already exists. Please sign in or use a different email.";
+    }
+    
+    return NextResponse.json({ error: userFriendlyMessage }, { status: 400 });
   }
 
   return NextResponse.json({ 
