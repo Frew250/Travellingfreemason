@@ -327,7 +327,7 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
               letterSpacing: "0.15em" 
             }}
           >
-            For verification only. It cannot be downloaded or shared.
+            For presentation only. It cannot be downloaded or shared.
           </p>
         </div>
       </div>

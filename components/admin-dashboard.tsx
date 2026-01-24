@@ -58,7 +58,7 @@ const statusConfig = {
     color: "text-yellow-600",
   },
   VERIFIED: {
-    label: "Verified",
+    label: "Confirmed",
     icon: CheckCircle,
     variant: "default" as const,
     color: "text-green-600",
@@ -111,7 +111,7 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
   const stats = [
     { label: "Total Members", value: profiles.length, icon: Users },
     { label: "Pending Review", value: pendingProfiles.length, icon: Clock },
-    { label: "Verified", value: verifiedProfiles.length, icon: CheckCircle },
+    { label: "Confirmed", value: verifiedProfiles.length, icon: CheckCircle },
     { label: "Rejected/Suspended", value: rejectedProfiles.length + suspendedProfiles.length, icon: XCircle },
   ];
 
@@ -145,10 +145,10 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            Member Verification
+            Member Confirmation
           </h1>
           <p className="text-muted-foreground">
-            Review and manage member credential verification requests
+            Review and manage member credential confirmation requests
           </p>
         </div>
 
@@ -184,7 +184,7 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
                 </span>
               )}
             </TabsTrigger>
-            <TabsTrigger value="verified">Verified</TabsTrigger>
+            <TabsTrigger value="verified">Confirmed</TabsTrigger>
             <TabsTrigger value="rejected">Rejected</TabsTrigger>
             <TabsTrigger value="all">All</TabsTrigger>
           </TabsList>
@@ -193,7 +193,7 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
             <ProfileList
               profiles={pendingProfiles}
               onReview={handleReview}
-              emptyMessage="No pending verification requests"
+              emptyMessage="No pending confirmation requests"
             />
           </TabsContent>
 
@@ -201,7 +201,7 @@ export function AdminDashboard({ user, profiles: initialProfiles }: AdminDashboa
             <ProfileList
               profiles={verifiedProfiles}
               onReview={handleReview}
-              emptyMessage="No verified members yet"
+              emptyMessage="No confirmed members yet"
             />
           </TabsContent>
 

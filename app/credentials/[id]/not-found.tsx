@@ -29,7 +29,7 @@ export default function CredentialsNotFound() {
           </h1>
           <p className="text-muted-foreground mb-6">
             The credentials you are looking for could not be found. This may be
-            because the member has not been verified yet, or the credential ID is
+            because the member profile is not yet confirmed, or the credential ID is
             incorrect.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

@@ -123,7 +123,7 @@ export default function SignupPage() {
             <CardTitle className="text-2xl font-bold">Check Your Email</CardTitle>
             <CardDescription>
               We sent a confirmation link to <strong>{email}</strong>. Please
-              check your inbox and click the link to verify your account.
+              check your inbox and click the link to confirm your account.
             </CardDescription>
           </CardHeader>
           <CardFooter className="justify-center">
@@ -145,7 +145,7 @@ export default function SignupPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
           <CardDescription>
-            Register to verify your Masonic credentials
+            Register to present your Masonic credentials
           </CardDescription>
         </CardHeader>
         <CardContent>

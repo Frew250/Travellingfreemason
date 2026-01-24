@@ -57,9 +57,9 @@ export default function VerifyPage() {
                   <Search className="h-8 w-8 text-primary" />
                 </div>
               </div>
-              <CardTitle className="text-2xl">Verify a Member</CardTitle>
+              <CardTitle className="text-2xl">View Member Credentials</CardTitle>
               <CardDescription>
-                Enter the credential ID to verify a Mason&apos;s membership status
+                Enter the credential ID to view a Mason&apos;s membership credentials
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -77,7 +77,7 @@ export default function VerifyPage() {
                 </div>
                 <Button type="submit" className="w-full">
                   <Search className="h-4 w-4 mr-2" />
-                  Verify Credentials
+                  View Credentials
                 </Button>
               </form>
 

@@ -100,8 +100,8 @@ export function MemberReviewModal({
         <DialogHeader>
           <DialogTitle>Review Member Application</DialogTitle>
           <DialogDescription>
-            Review the submitted documents and approve or reject this
-            verification request.
+            Review the submitted documents and confirm or reject this
+            member&apos;s credentials.
           </DialogDescription>
         </DialogHeader>
 
@@ -271,7 +271,7 @@ export function MemberReviewModal({
               ) : (
                 <CheckCircle className="h-4 w-4 mr-2" />
               )}
-              Verify Member
+              Confirm Member
             </Button>
             <Button
               variant="destructive"

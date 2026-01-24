@@ -70,7 +70,7 @@ const statusConfig = {
     color: "text-yellow-600",
   },
   VERIFIED: {
-    label: "Verified",
+    label: "Confirmed",
     icon: CheckCircle,
     variant: "default" as const,
     color: "text-green-600",
@@ -206,7 +206,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             Member Dashboard
           </h1>
           <p className="text-muted-foreground">
-            Manage your credentials and verification status
+            Manage your credentials and confirmation status
           </p>
         </div>
 
@@ -216,7 +216,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Shield className="h-6 w-6 text-primary" />
-                <CardTitle>Verification Status</CardTitle>
+                <CardTitle>Confirmation Status</CardTitle>
               </div>
               <Badge variant={statusConfig[status].variant}>
                 <StatusIcon className={`h-4 w-4 mr-1 ${statusConfig[status].color}`} />
@@ -254,7 +254,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             )} */}
             <div className="space-y-4">
               <p className="text-muted-foreground">
-                Share your credentials page with other lodges for verification.
+                Share your credentials page with other lodges for presentation.
               </p>
               <Link href={`/credentials/${currentProfile?.id}`}>
                 <Button>
@@ -408,7 +408,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
               <CardTitle>Documents</CardTitle>
             </div>
             <CardDescription>
-              Upload your dues card and membership certificate for verification
+              Upload your dues card and membership certificate for confirmation
             </CardDescription>
           </CardHeader>
           <CardContent>
