@@ -15,6 +15,7 @@ interface MemberProfile {
   verified_at: string | null;
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   dues_paid_through?: string | null;
   rank?: string | null;
 }
@@ -203,6 +204,30 @@ export function CredentialsCard({ profile }: CredentialsCardProps) {
                 }}
               >
                 Grand Lodge Certificate
+              </span>
+            )
+          )}
+          {profile.letter_of_introduction_url && (
+            timeRemaining > 0 ? (
+              <button
+                onClick={() => setViewingDocument({ url: profile.letter_of_introduction_url!, title: "Letter of Introduction" })}
+                className="block w-full text-white hover:text-slate-200 uppercase transition-colors font-serif font-medium cursor-pointer"
+                style={{ 
+                  fontSize: "15px", 
+                  letterSpacing: "0.12em" 
+                }}
+              >
+                Letter of Introduction
+              </button>
+            ) : (
+              <span 
+                className="block text-slate-500 uppercase font-serif font-medium"
+                style={{ 
+                  fontSize: "15px", 
+                  letterSpacing: "0.12em" 
+                }}
+              >
+                Letter of Introduction
               </span>
             )
           )}

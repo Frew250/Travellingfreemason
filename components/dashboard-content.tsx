@@ -48,10 +48,12 @@ interface MemberProfile {
   lodge_name: string;
   lodge_number: string;
   ritual_work_text: string;
+  rank: string | null;
   grand_lodge: string;
   status: "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   verified_at: string | null;
   admin_note: string | null;
   created_at: string;
@@ -115,6 +117,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
     lodge_number: profile?.lodge_number || "",
     grand_lodge: profile?.grand_lodge || "",
     ritual_work_text: profile?.ritual_work_text || "",
+    rank: profile?.rank || "",
   });
   const router = useRouter();
   const supabase = createClient();
@@ -133,6 +136,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
         lodge_number: currentProfile?.lodge_number || "",
         grand_lodge: currentProfile?.grand_lodge || "",
         ritual_work_text: currentProfile?.ritual_work_text || "",
+        rank: currentProfile?.rank || "",
       });
     }
     setIsEditing(!isEditing);
@@ -151,6 +155,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
         lodge_number: editForm.lodge_number,
         grand_lodge: editForm.grand_lodge,
         ritual_work_text: editForm.ritual_work_text,
+        rank: editForm.rank || null,
       })
       .eq("user_id", currentProfile.user_id);
 
@@ -165,11 +170,16 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
     setIsSaving(false);
   };
 
-  const handleUploadComplete = (type: "dues_card" | "certificate", url: string) => {
+  const handleUploadComplete = (type: "dues_card" | "certificate" | "letter_of_introduction", url: string) => {
     if (currentProfile) {
+      const urlKey = type === "dues_card" 
+        ? "dues_card_image_url" 
+        : type === "certificate" 
+          ? "certificate_image_url" 
+          : "letter_of_introduction_url";
       setCurrentProfile({
         ...currentProfile,
-        [type === "dues_card" ? "dues_card_image_url" : "certificate_image_url"]: url,
+        [urlKey]: url,
       });
     }
   };
@@ -309,6 +319,15 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
               isEditing ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
+                    <Label htmlFor="rank">Rank</Label>
+                    <Input
+                      id="rank"
+                      value={editForm.rank}
+                      onChange={(e) => setEditForm({ ...editForm, rank: e.target.value })}
+                      placeholder="Bro/MWBro/etc"
+                    />
+                  </div>
+                  <div className="space-y-2">
                     <Label htmlFor="full_name">Full Name</Label>
                     <Input
                       id="full_name"
@@ -364,6 +383,12 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">
+                      Rank
+                    </p>
+                    <p className="text-foreground">{currentProfile.rank || "Not specified"}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
                       Full Name
                     </p>
                     <p className="text-foreground">{currentProfile.full_name}</p>
@@ -412,7 +437,7 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <DocumentUpload
                 type="dues_card"
                 label="Dues Card"
@@ -426,6 +451,13 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
                 description="Upload your membership certificate"
                 currentUrl={currentProfile?.certificate_image_url}
                 onUploadComplete={(url) => handleUploadComplete("certificate", url)}
+              />
+              <DocumentUpload
+                type="letter_of_introduction"
+                label="Letter of Introduction"
+                description="Upload your letter of introduction"
+                currentUrl={currentProfile?.letter_of_introduction_url}
+                onUploadComplete={(url) => handleUploadComplete("letter_of_introduction", url)}
               />
             </div>
           </CardContent>
