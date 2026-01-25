@@ -9,12 +9,11 @@ export async function POST(request: Request) {
   const { email, password, fullName, lodgeName, lodgeNumber, ritualWorkText, rank, grandLodge } = await request.json();
 
   // First create the user
-  const origin = request.headers.get('origin') || '';
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+      emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${request.headers.get('origin')}/dashboard`,
       data: {
         full_name: fullName,
         role: "member",

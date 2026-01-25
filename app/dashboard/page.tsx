@@ -13,6 +13,13 @@ export default async function DashboardPage() {
     redirect("/auth/login");
   }
 
+  // Check if user is admin
+  const isAdmin = user.user_metadata?.role === "admin";
+
+  if (isAdmin) {
+    redirect("/admin");
+  }
+
   const { data: profile } = await supabase
     .from("member_profiles")
     .select("*")
