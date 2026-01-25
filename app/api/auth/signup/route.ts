@@ -35,18 +35,42 @@ export async function POST(request: Request) {
   }
 
   // Use the admin client to bypass RLS for profile creation
-  const { error: profileError } = await adminClient
-    .from("member_profiles")
-    .insert({
-      user_id: authData.user.id,
-      full_name: fullName,
-      lodge_name: lodgeName,
-      lodge_number: lodgeNumber,
-      ritual_work_text: ritualWorkText,
-      rank: rank || null,
-      grand_lodge: grandLodge,
-      status: "PENDING",
-    });
+  // Add retry logic to handle async user creation delay
+  let profileError = null;
+  let attempts = 0;
+  const maxAttempts = 3;
+  
+  while (attempts < maxAttempts) {
+    const { error } = await adminClient
+      .from("member_profiles")
+      .insert({
+        user_id: authData.user.id,
+        full_name: fullName,
+        lodge_name: lodgeName,
+        lodge_number: lodgeNumber,
+        ritual_work_text: ritualWorkText,
+        rank: rank || null,
+        grand_lodge: grandLodge,
+        status: "PENDING",
+      });
+    
+    if (!error) {
+      profileError = null;
+      break;
+    }
+    
+    // If it's a foreign key error, wait and retry
+    if (error.code === "23503") {
+      attempts++;
+      if (attempts < maxAttempts) {
+        await new Promise(resolve => setTimeout(resolve, 500)); // Wait 500ms before retry
+        continue;
+      }
+    }
+    
+    profileError = error;
+    break;
+  }
 
   if (profileError) {
     // If profile creation fails, delete the auth user to keep data consistent
