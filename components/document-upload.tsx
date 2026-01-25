@@ -8,7 +8,7 @@ import { Upload, FileCheck, Loader2, X, ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 interface DocumentUploadProps {
-  type: "dues_card" | "certificate";
+  type: "dues_card" | "certificate" | "letter_of_introduction";
   label: string;
   description: string;
   currentUrl: string | null | undefined;

@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  if (!["dues_card", "certificate"].includes(type)) {
+  if (!["dues_card", "certificate", "letter_of_introduction"].includes(type)) {
     return NextResponse.json({ error: "Invalid file type" }, { status: 400 });
   }
 
@@ -50,7 +50,11 @@ export async function POST(request: Request) {
 
   // Update the member profile with the new URL
   const updateField =
-    type === "dues_card" ? "dues_card_image_url" : "certificate_image_url";
+    type === "dues_card" 
+      ? "dues_card_image_url" 
+      : type === "certificate" 
+        ? "certificate_image_url" 
+        : "letter_of_introduction_url";
 
   const { error } = await supabase
     .from("member_profiles")

@@ -34,6 +34,7 @@ interface MemberProfile {
   status: "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   verified_at: string | null;
   verified_by: string | null;
   admin_note: string | null;
@@ -160,7 +161,7 @@ export function MemberReviewModal({
             <h3 className="font-semibold text-foreground mb-3">
               Submitted Documents
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* Dues Card */}
               <div className="border rounded-lg overflow-hidden">
                 <div className="bg-muted px-3 py-2 border-b">
@@ -232,6 +233,49 @@ export function MemberReviewModal({
                         <Image
                           src={profile.certificate_image_url || "/placeholder.svg"}
                           alt="Certificate"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    </a>
+                  )
+                ) : (
+                  <div className="p-6 text-center text-muted-foreground text-sm">
+                    Not uploaded
+                  </div>
+                )}
+              </div>
+
+              {/* Letter of Introduction */}
+              <div className="border rounded-lg overflow-hidden">
+                <div className="bg-muted px-3 py-2 border-b">
+                  <p className="text-sm font-medium text-foreground">
+                    Letter of Introduction
+                  </p>
+                </div>
+                {profile.letter_of_introduction_url ? (
+                  isPdf(profile.letter_of_introduction_url) ? (
+                    <div className="p-6 text-center">
+                      <FileText className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                      <a
+                        href={profile.letter_of_introduction_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary hover:underline flex items-center justify-center gap-1"
+                      >
+                        View PDF <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                  ) : (
+                    <a
+                      href={profile.letter_of_introduction_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="relative aspect-[4/3]">
+                        <Image
+                          src={profile.letter_of_introduction_url || "/placeholder.svg"}
+                          alt="Letter of Introduction"
                           fill
                           className="object-contain"
                         />

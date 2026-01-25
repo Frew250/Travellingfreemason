@@ -52,6 +52,7 @@ interface MemberProfile {
   status: "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   verified_at: string | null;
   admin_note: string | null;
   created_at: string;
@@ -165,11 +166,16 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
     setIsSaving(false);
   };
 
-  const handleUploadComplete = (type: "dues_card" | "certificate", url: string) => {
+  const handleUploadComplete = (type: "dues_card" | "certificate" | "letter_of_introduction", url: string) => {
     if (currentProfile) {
+      const fieldMap = {
+        dues_card: "dues_card_image_url",
+        certificate: "certificate_image_url",
+        letter_of_introduction: "letter_of_introduction_url",
+      };
       setCurrentProfile({
         ...currentProfile,
-        [type === "dues_card" ? "dues_card_image_url" : "certificate_image_url"]: url,
+        [fieldMap[type]]: url,
       });
     }
   };
@@ -408,11 +414,11 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
               <CardTitle>Documents</CardTitle>
             </div>
             <CardDescription>
-              Upload your dues card and membership certificate for verification
+              Upload your dues card, membership certificate, and letter of introduction for verification
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <DocumentUpload
                 type="dues_card"
                 label="Dues Card"
@@ -426,6 +432,13 @@ export function DashboardContent({ user, profile }: DashboardContentProps) {
                 description="Upload your membership certificate"
                 currentUrl={currentProfile?.certificate_image_url}
                 onUploadComplete={(url) => handleUploadComplete("certificate", url)}
+              />
+              <DocumentUpload
+                type="letter_of_introduction"
+                label="Letter of Introduction"
+                description="Upload a letter of introduction from your lodge"
+                currentUrl={currentProfile?.letter_of_introduction_url}
+                onUploadComplete={(url) => handleUploadComplete("letter_of_introduction", url)}
               />
             </div>
           </CardContent>

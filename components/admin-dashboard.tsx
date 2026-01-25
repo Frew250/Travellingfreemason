@@ -39,6 +39,7 @@ interface MemberProfile {
   status: "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
   dues_card_image_url: string | null;
   certificate_image_url: string | null;
+  letter_of_introduction_url: string | null;
   verified_at: string | null;
   verified_by: string | null;
   admin_note: string | null;
@@ -298,7 +299,7 @@ function ProfileList({
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <div className="flex gap-1 text-xs text-muted-foreground">
+                  <div className="flex gap-1 text-xs text-muted-foreground flex-wrap">
                     {profile.dues_card_image_url && (
                       <Badge variant="outline" className="text-xs">
                         Dues Card
@@ -307,6 +308,11 @@ function ProfileList({
                     {profile.certificate_image_url && (
                       <Badge variant="outline" className="text-xs">
                         Certificate
+                      </Badge>
+                    )}
+                    {profile.letter_of_introduction_url && (
+                      <Badge variant="outline" className="text-xs">
+                        Letter
                       </Badge>
                     )}
                   </div>
